@@ -90,6 +90,16 @@ class Enemy extends Populate {
   }
 }
 
+class Gem extends Populate {
+  constructor (x, y, color) {
+    super();
+    this.x = x;
+    this.y = y;
+    this.speed = 0;
+    this.sprite = "images/gem-" + color + ".png";
+    this.enemySprite = this.sprite;
+  }
+
 const enemy1 = new Enemy(101, 83, 150);
 const enemy2 = new Enemy(404, 166, 350);
 const enemy3 = new Enemy(0, 249, 375);
