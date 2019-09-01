@@ -62,15 +62,16 @@ class Player extends Populate {
       if (this.y === enemy.y && (enemy.x + enemy.sideways / 2 > this.x && enemy.x < this.x + this.sideways / 2)) {
         this.life --;
         var heart = document.querySelectorAll("#heart img");
-        if (heart.length >= 0){
+        if (heart.length > 1){
           heartEl.removeChild(heart[0]);
+          
           this.reset();
         }
         else {
-
+          heartEl.removeChild(heart[0]);
+          this.reset();
+          gameOver();
         };
-        
-        // gameOver
       }
     }
   }
@@ -80,7 +81,6 @@ const player = new Player();
 // add life element to the player
 // var lifeEl = document.getElementById('life');
 var heartEl = document.getElementById('heart');
-
 // var scoreEl = document.getElementById('score');
 var wrapper = document.getElementsByTagName('')
 //Array to hold Enemy objects
@@ -130,13 +130,15 @@ document.addEventListener("keyup", function (e) {
 function gameOver() {
   document.getElementById('game-over').style.display = 'block';
   document.getElementById('game-over-overlay').style.display = 'block';
-
+  document.getElementById('play-again').addEventListener('click', function() {
+        resetGame();
+      });
 }
 
 // Reset game to original state
 function resetGame() {
   document.getElementById('game-over').style.display = 'none';
   document.getElementById('game-over-overlay').style.display = 'none';
+  player.life = 5;
 
-  this.reset();
 };
