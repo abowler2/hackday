@@ -108,3 +108,17 @@ document.addEventListener("keyup", function (e) {
 
   player.handleInput(allowedKeys[e.keyCode]);
 });
+
+// Game over
+function gameOver() {
+  document.getElementById('game-over').style.display = 'block';
+  document.getElementById('game-over-overlay').style.display = 'block';
+}
+
+// Reset game to original state
+function reset() {
+  document.getElementById('game-over').style.display = 'none';
+  document.getElementById('game-over-overlay').style.display = 'none';
+
+  this.reset();
+};
