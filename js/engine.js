@@ -55,6 +55,11 @@ var Engine = (function (global) {
    * game loop.
    */
   function init () {
+    document.getElementById('play-again').addEventListener('click', function() {
+      console.log("testing");
+      resetGame();
+    });
+
     lastTime = Date.now();
     main();
   }
