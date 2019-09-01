@@ -65,7 +65,17 @@ class Player extends Populate {
   update () {
     for (let enemy of allEnemies) {
       if (this.y === enemy.y && (enemy.x + enemy.sideways / 2 > this.x && enemy.x < this.x + this.sideways / 2)) {
-
+        this.life --;
+        var heart = document.querySelectorAll("#heart img");
+        if (heart.length > 1){
+          heartEl.removeChild(heart[0]);
+          this.reset();
+        }
+        else {
+        //  heartEl.removeChild(heart[0]);
+          this.reset();
+          gameOver();
+        };
         this.reset();
       }
     }
@@ -102,22 +112,10 @@ class Player extends Populate {
           resetGems();
         }
         
-        this.life --;
-        var heart = document.querySelectorAll("#heart img");
-        if (heart.length > 1){
-          heartEl.removeChild(heart[0]);
-          
-          this.reset();
-        }
-        else {
-          heartEl.removeChild(heart[0]);
-          this.reset();
-          gameOver();
-        };
       }
     }
   }
-}
+
 
 const player = new Player();
 
@@ -134,9 +132,7 @@ let allGems = [];
 // var lifeEl = document.getElementById('life');
 var heartEl = document.getElementById('heart');
 // var scoreEl = document.getElementById('score');
-var wrapper = document.getElementsByTagName('')
-//Array to hold Enemy objects
-const allEnemies = [];
+var wrapper = document.getElementsByTagName('');
 
 
 //Enemy class
@@ -193,11 +189,9 @@ class Gem extends Populate {
     this.sideways = 50;
     this.upDown = 85;
   }
-    } else {
-      this.x = -100;
-    }
+    
   }
-}
+
 
 const enemy1 = new Enemy(101, 83, 150);
 const enemy2 = new Enemy(404, 166, 350);
