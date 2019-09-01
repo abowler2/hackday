@@ -113,10 +113,11 @@ document.addEventListener("keyup", function (e) {
 function gameOver() {
   document.getElementById('game-over').style.display = 'block';
   document.getElementById('game-over-overlay').style.display = 'block';
+
 }
 
 // Reset game to original state
-function reset() {
+function resetGame() {
   document.getElementById('game-over').style.display = 'none';
   document.getElementById('game-over-overlay').style.display = 'none';
 
