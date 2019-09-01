@@ -1,3 +1,22 @@
 body {
     text-align: center;
 }
+
+.wrapper {
+    width: 512px;
+    margin: 0 auto;
+    margin-top: 2em;
+}
+
+
+#instructions {
+    float: center;
+    font-family: sans-serif;
+    color: #757575;
+}
+
+#life {
+    float: center;
+    color: black;
+    font-size: 2em;
+}

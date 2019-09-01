@@ -16,6 +16,7 @@ class Populate {
   reset () {
     this.x = 0;
     this.y = 415;
+
   }
 }
 
@@ -26,6 +27,7 @@ class Player extends Populate {
     this.x = 0;
     this.y = 415;
     this.sprite = "images/char-boy.png";
+    this.life = 5;
   }
 
 //key input for Player
@@ -58,14 +60,29 @@ class Player extends Populate {
   update () {
     for (let enemy of allEnemies) {
       if (this.y === enemy.y && (enemy.x + enemy.sideways / 2 > this.x && enemy.x < this.x + this.sideways / 2)) {
-        this.reset();
+        this.life --;
+        var heart = document.querySelectorAll("#heart img");
+        if (heart.length >= 0){
+          heartEl.removeChild(heart[0]);
+          this.reset();
+        }
+        else {
+
+        };
+        
+        // gameOver
       }
     }
   }
 }
 
 const player = new Player();
+// add life element to the player
+// var lifeEl = document.getElementById('life');
+var heartEl = document.getElementById('heart');
 
+// var scoreEl = document.getElementById('score');
+var wrapper = document.getElementsByTagName('')
 //Array to hold Enemy objects
 const allEnemies = [];
 
