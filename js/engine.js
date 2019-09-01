@@ -128,6 +128,12 @@ var Engine = (function (global) {
    * on your enemy and player entities within app.js
    */
   function renderEntities () {
+
+    allGems.forEach(function (gem) {
+      gem.render();
+    });
+
+
     allEnemies.forEach(function (enemy) {
       enemy.render();
     });
@@ -142,6 +148,11 @@ var Engine = (function (global) {
     "images/grass-block.png",
     "images/enemy-bug.png",
     "images/char-boy.png",
+
+    "images/gem-blue.png",
+    "images/gem-green.png",
+    "images/gem-orange.png",
+
     "images/Star.png"
   ]);
   Resources.onReady(init);
