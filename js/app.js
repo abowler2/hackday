@@ -145,14 +145,13 @@ class Enemy extends Populate {
   randMove (start,level) {
     return start+Math.floor(Math.random()*level*20)
   }
-  randY (init_y){
-    init_y =83+ (init_y+Math.floor(Math.random()*800))%250
+  randY (init_y) {
+    init_y = 83+ (init_y+Math.floor(Math.random()*800))%250
     return init_y
-    } else {
-      this.x = -100;
+
     }
   }
-}
+
 
 class Gem extends Populate {
   constructor (color) {
