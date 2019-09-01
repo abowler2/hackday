@@ -26,11 +26,13 @@ class Player extends Populate {
     this.x = 0;
     this.y = 415;
     this.sprite = "images/char-boy.png";
+
     this.blueGemsCollected = 0;
     this.greenGemsCollected = 0;
     this.orangeGemsCollected = 0;
     this.gemsLeft = 0;
     this.score = 0;
+    this.life = 5;
   }
 
 //key input for Player
@@ -62,10 +64,23 @@ class Player extends Populate {
   //updates player and sets condition for collision & win
   update () {
     for (let enemy of allEnemies) {
-      if (this.y === enemy.y && (enemy.x + enemy.sideways / 2 > this.x && enemy.x < this.x + this.sideways / 2)) {
+      if ((enemy.x + enemy.sideways / 2 > this.x && enemy.x < this.x + this.sideways / 2) &&
+          (enemy.y - enemy.upDown / 2 < this.y && enemy.y > this.y - this.upDown / 2)) {
+        this.life --;
+        var heart = document.querySelectorAll("#heart img");
+        if (heart.length > 1){
+          heartEl.removeChild(heart[0]);
+          this.reset();
+        }
+        else {
+          heartEl.removeChild(heart[0]);
+          this.reset();
+          gameOver();
+        };
         this.reset();
       }
     }
+
 
       for (let gem of allGems) {
         if ((gem.x + gem.sideways / 2 > this.x && gem.x < this.x + this.sideways / 2) &&
@@ -98,17 +113,28 @@ class Player extends Populate {
           resetGems();
         }
         
+      }
     }
   }
-}
+
 
 const player = new Player();
+
 
 //Array to hold Enemy objects
 const allEnemies = [];
 
+
 //Array to hold gems for points
 let allGems = [];
+
+
+// add life element to the player
+// var lifeEl = document.getElementById('life');
+var heartEl = document.getElementById('heart');
+// var scoreEl = document.getElementById('score');
+var wrapper = document.getElementsByTagName('');
+
 
 //Enemy class
 class Enemy extends Populate {
@@ -116,6 +142,9 @@ class Enemy extends Populate {
     super();
     this.x = x;
     this.y = y;
+
+    this.direct = 1;
+
     this.speed = speed;
     this.sprite = "images/enemy-bug.png";
     this.enemySprite = this.sprite;
@@ -125,11 +154,30 @@ class Enemy extends Populate {
   update (dt) {
     if (this.x < this.sideways * 5) {
       this.x += this.speed * dt;
+
+      if (this.y > 250){
+        this.direct = -1
+      }
+      if (this.y < 83){
+        this.direct = 1
+      }
+      this.y += Math.floor(this.speed*this.direct*0.01)
     } else {
       this.x = -100;
+      //this.speed = this.randMove(this.speed,5)
+      this.y = this.randY(this.y)
     }
   }
-}
+  randMove (start,level) {
+    return start+Math.floor(Math.random()*level*20)
+  }
+  randY (init_y) {
+    init_y = 83+ (init_y+Math.floor(Math.random()*800))%250
+    return init_y
+
+    }
+  }
+
 
 class Gem extends Populate {
   constructor (color) {
@@ -142,7 +190,9 @@ class Gem extends Populate {
     this.sideways = 50;
     this.upDown = 85;
   }
-}
+    
+  }
+
 
 const enemy1 = new Enemy(101, 83, 150);
 const enemy2 = new Enemy(404, 166, 350);
@@ -168,6 +218,7 @@ console.log(gemsLeft);}
   gemsLeft++;}
 }
 
+
 allEnemies.push(enemy1, enemy2, enemy3, enemy4);
 
 // Player.handleInput() method. You don't need to modify this.
@@ -181,3 +232,20 @@ document.addEventListener("keyup", function (e) {
 
   player.handleInput(allowedKeys[e.keyCode]);
 });
+
+// Game over
+function gameOver() {
+  document.getElementById('game-over').style.display = 'block';
+  document.getElementById('game-over-overlay').style.display = 'block';
+  document.getElementById('play-again').addEventListener('click', function() {
+        resetGame();
+      });
+}
+
+// Reset game to original state
+function resetGame() {
+  document.getElementById('game-over').style.display = 'none';
+  document.getElementById('game-over-overlay').style.display = 'none';
+  player.life = 5;
+
+};
