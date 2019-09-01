@@ -64,7 +64,8 @@ class Player extends Populate {
   //updates player and sets condition for collision & win
   update () {
     for (let enemy of allEnemies) {
-      if (this.y === enemy.y && (enemy.x + enemy.sideways / 2 > this.x && enemy.x < this.x + this.sideways / 2)) {
+      if ((enemy.x + enemy.sideways / 2 > this.x && enemy.x < this.x + this.sideways / 2) &&
+        (enemy.y - enemy.upDown / 2 < this.y && enemy.y > this.y - this.upDown / 2)) {
         this.life --;
         var heart = document.querySelectorAll("#heart img");
         if (heart.length > 1){
@@ -72,14 +73,13 @@ class Player extends Populate {
           this.reset();
         }
         else {
-        //  heartEl.removeChild(heart[0]);
+          heartEl.removeChild(heart[0]);
           this.reset();
           gameOver();
         };
         this.reset();
       }
     }
-
 
       for (let gem of allGems) {
         if ((gem.x + gem.sideways / 2 > this.x && gem.x < this.x + this.sideways / 2) &&
@@ -246,5 +246,6 @@ function resetGame() {
   document.getElementById('game-over').style.display = 'none';
   document.getElementById('game-over-overlay').style.display = 'none';
   player.life = 5;
-
+  let heart = `<img src="images/Heart.png" alt="heart" width="50">`.repeat(5);
+  heartEl.innerHTML = heart;
 };
