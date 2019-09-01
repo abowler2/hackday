@@ -20,6 +20,7 @@ body {
     float: center;
     color: black;
     font-size: 2em;
+}
 
 #game-over, #game-over-overlay {
     margin: auto;
